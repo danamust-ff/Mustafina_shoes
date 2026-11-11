@@ -1,0 +1,24 @@
+﻿<Page x:Class="Mustafina_shoes.AuthPage"
+      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+      xmlns:local="clr-namespace:Mustafina_shoes"
+      mc:Ignorable="d" 
+      d:DesignHeight="650" d:DesignWidth="1100" 
+      Title="AuthPage"  FontFamily="Calibri" >
+
+    <Grid>
+        <StackPanel VerticalAlignment="Center" HorizontalAlignment="Center">
+            <TextBlock Text="Авторизация" Grid.Row="0" Grid.Column="1" HorizontalAlignment="Center"  Margin="0,0,0,40" FontSize="30"/>
+            <StackPanel Margin="0,0,0,20">
+                <TextBlock Text="Логин "  HorizontalAlignment="Center" FontSize="20" Height="40"/>
+                <TextBox Name="TBoxlog" TextChanged="TBoxlog_TextChanged" Width="250" FontSize="20" Height="50"/>
+            </StackPanel>
+            <StackPanel >
+                <Button Name="Guest" Background="#70B2AF" Content="Войти как гость" Click="Guest_Click" Grid.Row="3" Grid.Column="1" FontSize="20" Margin="0,0,0,10" Width="200" Height="45"/>
+                <Button Name="LogIn" Background="#70B2AF" Content="Войти" Click="LogIn_Click" Grid.Row="3" Grid.Column="1"  FontSize="20" Width="200" Height="45"/>
+            </StackPanel>
+        </StackPanel>
+    </Grid>
+</Page>
