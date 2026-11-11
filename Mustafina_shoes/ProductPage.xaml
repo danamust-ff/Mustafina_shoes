@@ -10,13 +10,13 @@
 
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="70"/>
+            <RowDefinition Height="100"/>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="30"/>
+            <RowDefinition Height="20"/>
         </Grid.RowDefinitions>
-        <TextBox Name="TBSearch" TextChanged="TBSearch_TextChanged" Grid.Row="0" HorizontalAlignment="Left" FontSize="17" Margin="15" Width="250" Height="30" />
+        <TextBox Name="TBSearch" TextChanged="TBSearch_TextChanged" Grid.Row="0" HorizontalAlignment="Left"  Margin="15,50,0,0" FontSize="17"  Width="250" Height="30" />
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Center">
-            <ComboBox Name="ComboSort" SelectionChanged="ComboSort_SelectionChanged" Width="250" Height="30" FontSize="17">
+            <ComboBox Name="ComboSort" SelectionChanged="ComboSort_SelectionChanged" Margin="0,50,0,0" Width="250" Height="30" FontSize="17">
                 <TextBlock>Сортировка по умолчанию</TextBlock>
                 <TextBlock>От А до Я</TextBlock>
                 <TextBlock>По возрастанию цены</TextBlock>
@@ -24,18 +24,21 @@
             </ComboBox>
         </StackPanel>
         <StackPanel Grid.Row="0" Orientation="Horizontal" HorizontalAlignment="Right" >
-            <ComboBox Name="ComboType" SelectionChanged="ComboType_SelectionChanged" Width="250" Margin="15" Height="30" FontSize="17" >
+            <ComboBox Name="ComboType" SelectionChanged="ComboType_SelectionChanged"  Margin="0,50,15,0" Width="250"  Height="30" FontSize="17" >
                 <TextBlock>Фильтр по умолчанию</TextBlock>
                 <TextBlock>Женская обувь</TextBlock>
                 <TextBlock>Мужская обвуь</TextBlock>
                 <TextBlock>Детская обувь</TextBlock>
             </ComboBox>
         </StackPanel>
-        <StackPanel Grid.Row="2" Orientation="Horizontal" HorizontalAlignment="Center">
-            <TextBlock Text="Вы вошли как: " FontSize="20" />
-            <TextBlock Name="NameUser" FontSize="20" />
+        <StackPanel Grid.Row="0" Margin="15,0,0,0" >
+            <TextBlock Name="FIOTB" FontSize="17" FontWeight="Bold"/>
+            <WrapPanel Orientation="Horizontal">
+                <TextBlock Text=" Вы авторизованы как: " FontSize="17" />
+                <TextBlock Name="RoleTB" FontSize="17" FontWeight="Bold" />
+            </WrapPanel>
         </StackPanel>
-            <ListView Name="ProductListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
+        <ListView Name="ProductListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Grid>
@@ -46,11 +49,11 @@
                             <RowDefinition Height="*"/>
                         </Grid.RowDefinitions>
                         <Grid.ColumnDefinitions >
-                            <ColumnDefinition Width="150"/>
-                            <ColumnDefinition Width="330"/>
-                            <ColumnDefinition Width="10"/>
-                            <ColumnDefinition Width="400"/>
-                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="170"/>
+                            <ColumnDefinition Width="500"/>
+                            <ColumnDefinition Width="15"/>
+                            <ColumnDefinition Width="550"/>
+                            <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
 
                         <Image Grid.RowSpan="4" Grid.Column="0"  Stretch="UniformToFill" HorizontalAlignment="Center">
@@ -62,13 +65,13 @@
                                 </Binding>
                             </Image.Source>
                         </Image>
-                        <TextBlock Text="{Binding NameProduct}" Grid.Row="0" Grid.Column="3"   FontSize="20" HorizontalAlignment="Left" />
-                        <TextBlock Text="{Binding Category.NameCategory}" Grid.Row="1" Grid.Column="1" FontSize="17"/>
-                        <TextBlock Text="{Binding Subcategory.NameSubcategory}" Grid.Row="2" Grid.Column="1" FontSize="17"/>
-                        <TextBlock Text="{Binding Manufacture.NameManufacture}"   Grid.Row="0"  Grid.Column="1" HorizontalAlignment="Right" FontSize="20"/>
-                        <TextBlock Text=" | " Grid.Row="0"   Grid.Column="2"  FontSize="20"/>
-                        <TextBlock Text="{Binding Compound}" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="6" FontSize="17" />
-                        <TextBlock Text="{Binding PriceProduct}" Grid.Row="2"  Grid.Column="4" FontSize="20" HorizontalAlignment="Center" FontWeight="Bold" />
+                        <TextBlock Text="{Binding NameProduct}" Grid.Row="0" Grid.Column="3" FontWeight="Bold"  Grid.ColumnSpan="5" FontSize="25" HorizontalAlignment="Left" />
+                        <TextBlock Text="{Binding Category.Category1}" Grid.Row="1" Grid.Column="1" FontSize="20"/>
+                        <TextBlock Text="{Binding QuantityInText,StringFormat=В наличии: {0} шт.}" Grid.Row="2" Grid.Column="1" FontSize="20" />
+                        <TextBlock Text="{Binding Manufacture.Manufacture1}"   Grid.Row="0"  Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" FontSize="25"/>
+                        <TextBlock Text=" | " Grid.Row="0"   Grid.Column="2"  FontSize="25"/>
+                        <TextBlock Text="{Binding Compound}" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="3" FontSize="20" />
+                        <TextBlock Text="{Binding PriceProduct}" Grid.Row="2"  Grid.Column="4" FontSize="22" HorizontalAlignment="Center" FontWeight="Bold" />
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

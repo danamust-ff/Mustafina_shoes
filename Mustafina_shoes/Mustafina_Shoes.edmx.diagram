@@ -4,24 +4,22 @@
   <edmx:Designer xmlns="http://schemas.microsoft.com/ado/2009/11/edmx">
     <!-- Diagram content (shape and connector positions) -->
     <edmx:Diagrams>
-      <Diagram DiagramId="5e7be0b0a6034eef9eaa48fbe6bd68bc" Name="Diagram1">
+      <Diagram DiagramId="4d1163921ffd40f3a391f986a650d8a1" Name="Diagram1">
         <EntityTypeShape EntityType="Mustafina_ShoesModel.Category" Width="1.5" PointX="0.75" PointY="2" IsExpanded="true" />
         <EntityTypeShape EntityType="Mustafina_ShoesModel.Manufacture" Width="1.5" PointX="0.75" PointY="4.75" IsExpanded="true" />
-        <EntityTypeShape EntityType="Mustafina_ShoesModel.Order" Width="1.5" PointX="5.25" PointY="10.625" IsExpanded="true" />
-        <EntityTypeShape EntityType="Mustafina_ShoesModel.OrderItems" Width="1.5" PointX="7.5" PointY="1.5" IsExpanded="true" />
-        <EntityTypeShape EntityType="Mustafina_ShoesModel.Products" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
-        <EntityTypeShape EntityType="Mustafina_ShoesModel.Role" Width="1.5" PointX="0.75" PointY="11" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mustafina_ShoesModel.Order" Width="1.5" PointX="10.25" PointY="5.125" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mustafina_ShoesModel.OrderItems" Width="1.5" PointX="7.75" PointY="0.75" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mustafina_ShoesModel.Product" Width="1.5" PointX="3" PointY="1" IsExpanded="true" />
+        <EntityTypeShape EntityType="Mustafina_ShoesModel.Role" Width="1.5" PointX="5.75" PointY="5.375" IsExpanded="true" />
         <EntityTypeShape EntityType="Mustafina_ShoesModel.Size" Width="1.5" PointX="3" PointY="6" IsExpanded="true" />
         <EntityTypeShape EntityType="Mustafina_ShoesModel.Stock" Width="1.5" PointX="5.25" PointY="1.625" IsExpanded="true" />
         <EntityTypeShape EntityType="Mustafina_ShoesModel.Subcategory" Width="1.5" PointX="0.75" PointY="8.125" IsExpanded="true" />
-        <EntityTypeShape EntityType="Mustafina_ShoesModel.User" Width="1.5" PointX="3" PointY="10.5" IsExpanded="true" />
-        <AssociationConnector Association="Mustafina_ShoesModel.FK_Products_Category" ManuallyRouted="false" />
-        <AssociationConnector Association="Mustafina_ShoesModel.FK_Products_Manufacture" ManuallyRouted="false" />
+        <EntityTypeShape EntityType="Mustafina_ShoesModel.User" Width="1.5" PointX="8" PointY="5" IsExpanded="true" />
+        <AssociationConnector Association="Mustafina_ShoesModel.FK_Product_Category" ManuallyRouted="false" />
+        <AssociationConnector Association="Mustafina_ShoesModel.FK_Product_Manufacture" ManuallyRouted="false" />
         <AssociationConnector Association="Mustafina_ShoesModel.FK_Order_User" ManuallyRouted="false" />
-        <AssociationConnector Association="Mustafina_ShoesModel.FK_OrderItems_Order" ManuallyRouted="false" />
-        <AssociationConnector Association="Mustafina_ShoesModel.FK_OrderItems_Stock" ManuallyRouted="false" />
-        <AssociationConnector Association="Mustafina_ShoesModel.FK_Products_Subcategory" ManuallyRouted="false" />
-        <AssociationConnector Association="Mustafina_ShoesModel.FK_Stock_Products" ManuallyRouted="false" />
+        <AssociationConnector Association="Mustafina_ShoesModel.FK_Product_Subcategory" ManuallyRouted="false" />
+        <AssociationConnector Association="Mustafina_ShoesModel.FK_Stock_Product" ManuallyRouted="false" />
         <AssociationConnector Association="Mustafina_ShoesModel.FK_User_Role" ManuallyRouted="false" />
         <AssociationConnector Association="Mustafina_ShoesModel.FK_Stock_Size" ManuallyRouted="false" />
       </Diagram>

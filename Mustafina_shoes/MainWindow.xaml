@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mustafina_shoes"
         mc:Ignorable="d"      
-        Title="MainWindow" Height="650" Width="1100" FontFamily="Calibri"   Background="#D2F6E7">  
+        Title="MainWindow" WindowState="Maximized" FontFamily="Calibri"   Background="#D2F6E7">  
     <Grid>
         <Grid.RowDefinitions>
             <RowDefinition Height="40"/>

@@ -40,12 +40,12 @@ namespace Mustafina_shoes
         {
             User GuestUser = new User
             {
-                IDUser = 0,
+                IdUser = 0,
                 Login = "guest",
                 FirstName = "Гость",
                 LastName = "",
                 Patronymic = "",
-                IDRole = 0
+                IdRole = 0
             };
             Manager.MainFrame.Navigate(new ProductPage(GuestUser));
 

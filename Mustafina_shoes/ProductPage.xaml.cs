@@ -25,9 +25,33 @@ namespace Mustafina_shoes
         {
             InitializeComponent();
             
+            if(user.IdRole == 1)
+            {
+                FIOTB.Text = user.LastName + " " + user.FirstName + " " + user.Patronymic;
+                RoleTB.Text = "Администратор";
+            }
+            else if (user.IdRole == 2)
+            {
+                FIOTB.Text = user.LastName + " " + user.FirstName + " " + user.Patronymic;
+                RoleTB.Text = "Менеджер";
+            }
+            else if (user.IdRole == 3)
+            {
+                FIOTB.Text = user.LastName + " " + user.FirstName + " " + user.Patronymic;
+                RoleTB.Text = "Клиент";
+            }
+            else
+            {
+                FIOTB.Text = "";
+                RoleTB.Text = "Гость";
+                ComboSort.Visibility = Visibility.Collapsed;
+                ComboType.Visibility = Visibility.Collapsed;
+                TBSearch.Visibility = Visibility.Collapsed;
+            }
+            
 
 
-            var currentProducts = Mustafina_ShoesEntities.GetContext().Products.ToList();
+            var currentProducts = Mustafina_ShoesEntities.GetContext().Product.ToList();
             ProductListView.ItemsSource = currentProducts;
 
             ComboSort.SelectedIndex = 0;
@@ -36,19 +60,19 @@ namespace Mustafina_shoes
         }
         private void UpdateShoes()
         {
-            var currentProducts = Mustafina_ShoesEntities.GetContext().Products.ToList();
+            var currentProducts = Mustafina_ShoesEntities.GetContext().Product.ToList();
 
             if (ComboType.SelectedIndex == 1)
             {
-                currentProducts=currentProducts.Where(p=>p.IDCategory==2).ToList();
+                currentProducts=currentProducts.Where(p=>p.IdCategory==1).ToList();
             }
             else if (ComboType.SelectedIndex == 2)
             {
-                currentProducts=currentProducts.Where(p=>p.IDCategory==3).ToList();
+                currentProducts=currentProducts.Where(p=>p.IdCategory==3).ToList();
             }
             else if (ComboType.SelectedIndex == 3)
             {
-                currentProducts=currentProducts.Where(p=>p.IDCategory==1).ToList();
+                currentProducts=currentProducts.Where(p=>p.IdCategory==2).ToList();
             }
 
             currentProducts=currentProducts.Where(p=>p.NameProduct.ToLower().Contains(TBSearch.Text.ToLower()) 
