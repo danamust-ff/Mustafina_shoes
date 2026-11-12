@@ -18,8 +18,6 @@ namespace Mustafina_shoes
         public int IdProduct { get; set; }
         public int IdSize { get; set; }
         public int OuantityInStock { get; set; }
-
-
     
         public virtual Product Product { get; set; }
         public virtual Size Size { get; set; }

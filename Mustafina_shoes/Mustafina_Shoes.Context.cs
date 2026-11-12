@@ -18,8 +18,7 @@ namespace Mustafina_shoes
         private static Mustafina_ShoesEntities _context;
         public static Mustafina_ShoesEntities GetContext()
         {
-            if (_context == null)
-                _context = new Mustafina_ShoesEntities();
+            if (_context == null) _context = new Mustafina_ShoesEntities();
             return _context;
         }
         public Mustafina_ShoesEntities()

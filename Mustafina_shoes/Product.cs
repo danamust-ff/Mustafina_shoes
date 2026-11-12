@@ -12,7 +12,6 @@ namespace Mustafina_shoes
     using System;
     using System.Collections.Generic;
     using System.Linq;
-
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -53,6 +52,7 @@ namespace Mustafina_shoes
                 return TotalQuantity > 5 ? "много" : "мало";
             }
         }
+
 
         public virtual Category Category { get; set; }
         public virtual Manufacture Manufacture { get; set; }

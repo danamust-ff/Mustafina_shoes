@@ -30,5 +30,19 @@ namespace Mustafina_shoes
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2227:CollectionPropertiesShouldBeReadOnly")]
         public virtual ICollection<Order> Order { get; set; }
         public virtual Role Role { get; set; }
-    }
+        public string FullName
+        {
+            get
+            {
+                string result = LastName;
+
+                if (!string.IsNullOrWhiteSpace(FirstName))
+                    result += $" {FirstName}";
+
+                if (!string.IsNullOrWhiteSpace(Patronymic))
+                    result += $" {Patronymic}";
+
+                return result;
+            }
+        }
 }

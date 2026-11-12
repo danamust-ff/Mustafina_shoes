@@ -6,7 +6,7 @@
       xmlns:local="clr-namespace:Mustafina_shoes"
       mc:Ignorable="d" 
       d:DesignHeight="650" d:DesignWidth="1100"
-      Title="ProductPage"     FontFamily="Calibri" >
+      Title="Каталог товаров"     FontFamily="Calibri" >
 
     <Grid>
         <Grid.RowDefinitions>
@@ -38,6 +38,7 @@
                 <TextBlock Name="RoleTB" FontSize="17" FontWeight="Bold" />
             </WrapPanel>
         </StackPanel>
+        
         <ListView Name="ProductListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.ItemTemplate>
                 <DataTemplate>
@@ -53,6 +54,7 @@
                             <ColumnDefinition Width="500"/>
                             <ColumnDefinition Width="15"/>
                             <ColumnDefinition Width="550"/>
+                            <ColumnDefinition Width="250"/>
                             <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
 
@@ -72,6 +74,11 @@
                         <TextBlock Text=" | " Grid.Row="0"   Grid.Column="2"  FontSize="25"/>
                         <TextBlock Text="{Binding Compound}" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="3" FontSize="20" />
                         <TextBlock Text="{Binding PriceProduct}" Grid.Row="2"  Grid.Column="4" FontSize="22" HorizontalAlignment="Center" FontWeight="Bold" />
+                        <!-- Правая часть — кнопка «Оформить заказ» (только для авторизованных) -->
+                        <Button Content="Оформить заказ" Grid.Row="2" Grid.Column="5" Width="160" Height="45" FontSize="14" VerticalAlignment="Center"  Margin="10,0,0,0" Background="#70B2AF" Foreground="White"
+            BorderThickness="0" Cursor="Hand"
+            Visibility="{Binding BuyVisibility}"
+            Click="BtnBuy_Click"/>
                     </Grid>
                 </DataTemplate>
             </ListView.ItemTemplate>

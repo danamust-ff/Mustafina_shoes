@@ -21,6 +21,8 @@ namespace Mustafina_shoes
     /// </summary>
     public partial class ProductPage : Page
     {
+        private bool _isInitialized = false;
+        private List<Product> _allProducts;
         public ProductPage(User user)
         {
             InitializeComponent();
@@ -53,10 +55,12 @@ namespace Mustafina_shoes
 
             var currentProducts = Mustafina_ShoesEntities.GetContext().Product.ToList();
             ProductListView.ItemsSource = currentProducts;
+            _allProducts = Mustafina_ShoesEntities.GetContext().Product.ToList();
 
             ComboSort.SelectedIndex = 0;
             ComboType.SelectedIndex = 0;
             UpdateShoes();
+            _isInitialized = true;
         }
         private void UpdateShoes()
         {
@@ -101,17 +105,17 @@ namespace Mustafina_shoes
 
         private void ComboSort_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateShoes();
+            if (_isInitialized) UpdateShoes();
         }
 
         private void ComboType_SelectionChanged(object sender, SelectionChangedEventArgs e)
         {
-            UpdateShoes();
+            if (_isInitialized) UpdateShoes();
         }
 
         private void TBSearch_TextChanged(object sender, TextChangedEventArgs e)
         {
-            UpdateShoes();
+            if (_isInitialized) UpdateShoes();
         }
     }
 }
