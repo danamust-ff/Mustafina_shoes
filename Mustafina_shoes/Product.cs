@@ -11,7 +11,7 @@ namespace Mustafina_shoes
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
+    
     public partial class Product
     {
         [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
@@ -29,31 +29,7 @@ namespace Mustafina_shoes
         public string Compound { get; set; }
         public decimal PriceProduct { get; set; }
         public string Image { get; set; }
-        public string ProductPhotoPath
-        {
-            get
-            {
-                if (Image == null)
-                    return null;
-                return "/res/Images/" + Image;
-            }
-        }
-        public int TotalQuantity
-        {
-            get
-            {
-                return this.Stock.Sum(s => s.OuantityInStock);
-            }
-        }
-        public string QuantityInText
-        {
-            get
-            {
-                return TotalQuantity > 5 ? "много" : "мало";
-            }
-        }
-
-
+    
         public virtual Category Category { get; set; }
         public virtual Manufacture Manufacture { get; set; }
         public virtual Subcategory Subcategory { get; set; }

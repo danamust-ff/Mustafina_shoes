@@ -38,38 +38,36 @@ namespace Mustafina_shoes
 
         private void Guest_Click(object sender, RoutedEventArgs e)
         {
-            User GuestUser = new User
-            {
-                IdUser = 0,
-                Login = "guest",
-                FirstName = "Гость",
-                LastName = "",
-                Patronymic = "",
-                IdRole = 0
-            };
-            Manager.MainFrame.Navigate(new ProductPage(GuestUser));
+            User GuestUser = new User { IdUser = 0, Login = "guest", FirstName = "Гость", LastName = "", Patronymic = "", IdRole = 0 };
+            Manager.CurrentUser = GuestUser;
 
+            // Обновляем шапку главного окна
+            if (Application.Current.MainWindow is MainWindow mainWin)
+                mainWin.UpdateHeader();
+
+            Manager.MainFrame.Navigate(new ProductPage(GuestUser));
         }
 
         private void LogIn_Click(object sender, RoutedEventArgs e)
         {
             string login = TBoxlog.Text;
-            if (string.IsNullOrEmpty(login))
-            {
-                MessageBox.Show("Введите логин!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
-                return;
-            }
-            User user = Mustafina_ShoesEntities.GetContext().User.FirstOrDefault(p=>p.Login==TBoxlog.Text);
+            if (string.IsNullOrEmpty(login)) { MessageBox.Show("Введите логин!"); return; }
+
+            User user = Mustafina_ShoesEntities.GetContext().User.FirstOrDefault(p => p.Login == login);
             if (user != null)
             {
                 TBoxlog.Text = "";
+                Manager.CurrentUser = user;
+
+                // Обновляем шапку главного окна
+                if (Application.Current.MainWindow is MainWindow mainWin)
+                    mainWin.UpdateHeader();
+
                 Manager.MainFrame.Navigate(new ProductPage(user));
             }
             else
             {
-                failedAttempts++;
-                if (failedAttempts > 0)
-                    MessageBox.Show("Введены неверные данные!", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Warning);
+                MessageBox.Show("Введены неверные данные!");
                 TBoxlog.Text = "";
             }
         }

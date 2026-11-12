@@ -38,11 +38,12 @@
                 <TextBlock Name="RoleTB" FontSize="17" FontWeight="Bold" />
             </WrapPanel>
         </StackPanel>
-        
+
         <ListView Name="ProductListView" Grid.Row="1" d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.ItemTemplate>
                 <DataTemplate>
-                    <Grid>
+                    <!-- Добавлен Background="{Binding RowBackground}" для подсветки -->
+                    <Grid Background="{Binding RowBackground}">
                         <Grid.RowDefinitions>
                             <RowDefinition Height="*"/>
                             <RowDefinition Height="*"/>
@@ -58,23 +59,29 @@
                             <ColumnDefinition Width="250"/>
                         </Grid.ColumnDefinitions>
 
-                        <Image Grid.RowSpan="4" Grid.Column="0"  Stretch="UniformToFill" HorizontalAlignment="Center">
-                            <Image.Source>
-                                <Binding Path="ProductPhotoPath">
-                                    <Binding.TargetNullValue>
-                                        <Image Source="/res/lalala.png" />
-                                    </Binding.TargetNullValue>
-                                </Binding>
-                            </Image.Source>
-                        </Image>
+                        <!-- Картинка -->
+                        <Image Grid.RowSpan="4" Grid.Column="0" Source="{Binding ImagePath}" Stretch="UniformToFill" HorizontalAlignment="Center" />
+
+                        <!-- Название -->
                         <TextBlock Text="{Binding NameProduct}" Grid.Row="0" Grid.Column="3" FontWeight="Bold"  Grid.ColumnSpan="5" FontSize="25" HorizontalAlignment="Left" />
-                        <TextBlock Text="{Binding Category.Category1}" Grid.Row="1" Grid.Column="1" FontSize="20"/>
-                        <TextBlock Text="{Binding QuantityInText,StringFormat=В наличии: {0} шт.}" Grid.Row="2" Grid.Column="1" FontSize="20" />
-                        <TextBlock Text="{Binding Manufacture.Manufacture1}"   Grid.Row="0"  Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" FontSize="25"/>
+
+                        <!-- Категория -->
+                        <TextBlock Text="{Binding CategoryName}" Grid.Row="1" Grid.Column="1" FontSize="20"/>
+
+                        <!-- Доступные размеры -->
+                        <TextBlock Text="{Binding AvailableSizes, StringFormat=Размеры: {0}}" Grid.Row="2" Grid.Column="1" FontSize="20" />
+
+                        <!-- Производитель -->
+                        <TextBlock Text="{Binding ManufactureName}"   Grid.Row="0"  Grid.Column="1" HorizontalAlignment="Right" FontWeight="Bold" FontSize="25"/>
                         <TextBlock Text=" | " Grid.Row="0"   Grid.Column="2"  FontSize="25"/>
+
+                        <!-- Состав -->
                         <TextBlock Text="{Binding Compound}" TextWrapping="Wrap" Grid.Row="3" Grid.Column="1"  Grid.ColumnSpan="3" FontSize="20" />
+
+                        <!-- Цена -->
                         <TextBlock Text="{Binding PriceProduct}" Grid.Row="2"  Grid.Column="4" FontSize="22" HorizontalAlignment="Center" FontWeight="Bold" />
-                        <!-- Правая часть — кнопка «Оформить заказ» (только для авторизованных) -->
+
+                        <!-- Кнопка «Оформить заказ» -->
                         <Button Content="Оформить заказ" Grid.Row="2" Grid.Column="5" Width="160" Height="45" FontSize="14" VerticalAlignment="Center"  Margin="10,0,0,0" Background="#70B2AF" Foreground="White"
             BorderThickness="0" Cursor="Hand"
             Visibility="{Binding BuyVisibility}"

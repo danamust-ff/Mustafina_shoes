@@ -8,7 +8,7 @@
       d:DesignHeight="450" d:DesignWidth="800"
       Title="OrdersPage">
 
-    <Grid>
+    <Grid Margin="15,5,15,10">
         <Grid.RowDefinitions>
             <RowDefinition Height="Auto"/>
             <RowDefinition Height="Auto"/>
@@ -18,10 +18,10 @@
         <TextBlock Grid.Row="0" Text="Список заказов"
                    FontSize="26" FontWeight="Bold"
                    Foreground="#333333"
-                   HorizontalAlignment="Center"
-                   Margin="0,15,0,10"/>
+                   HorizontalAlignment="Left"
+                   Margin="5,10,0,12"/>
 
-        <Border Grid.Row="1" Background="#D2F6E7" Padding="10">
+        <Border Grid.Row="1" Background="#D2F6E7" Padding="10" CornerRadius="6">
             <StackPanel Orientation="Horizontal" HorizontalAlignment="Right">
                 <TextBlock Text="Поиск: " FontSize="16" VerticalAlignment="Center"/>
                 <TextBox Name="TBox_OrderSearch" Width="250" Height="28"
@@ -39,7 +39,8 @@
         </Border>
 
         <ListView Grid.Row="2" Name="ListViewOrders"
-                  BorderThickness="0" Margin="10"
+                  BorderThickness="0" Margin="5,10,5,0" Padding="0,0,5,0"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled"
                   d:ItemsSource="{d:SampleData ItemCount=5}">
             <ListView.ItemContainerStyle>
                 <Style TargetType="ListViewItem">
@@ -50,7 +51,7 @@
             <ListView.ItemTemplate>
                 <DataTemplate>
                     <Border BorderBrush="#CCCCCC" BorderThickness="1"
-                            Padding="10" Margin="0,0,0,5">
+                            Padding="12,10" Margin="0,0,0,8" CornerRadius="6">
                         <Grid>
                             <Grid.ColumnDefinitions>
                                 <ColumnDefinition Width="80"/>
@@ -94,7 +95,7 @@
                                            VerticalAlignment="Center"
                                            Margin="0,0,15,0"
                                            TextAlignment="Right">
-                                    <Run Text="{Binding TotalSum, StringFormat={}{0:N2} руб., Mode=OneWay}"/>
+                                    <Run Text="{Binding TotalSum, Mode=OneWay, StringFormat={}{0:N2} руб.}"/>
                                 </TextBlock>
 
                                 <Button Content="Состав" Width="100" Height="30"

@@ -4,18 +4,49 @@
         xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:Mustafina_shoes"
-        mc:Ignorable="d"      
-        Title="MainWindow" WindowState="Maximized" FontFamily="Calibri"   Background="#D2F6E7">  
+        mc:Ignorable="d"
+        Title="MainWindow" WindowState="Maximized" FontFamily="Calibri" Background="#D2F6E7">
     <Grid>
         <Grid.RowDefinitions>
-            <RowDefinition Height="40"/>
+            <RowDefinition Height="70"/>
+            <!-- Увеличил высоту для красоты -->
             <RowDefinition Height="*"/>
             <RowDefinition Height="30"/>
         </Grid.RowDefinitions>
-        <TextBlock Text="Чудо-Обувь" FontSize="30" HorizontalAlignment="Center"></TextBlock>
-        
-        <Image Source="/res/Чудо Обувь.ico"  Grid.Row="0" HorizontalAlignment="Left"/>
-        <Frame Name="MainFrame" Grid.Row="1" ContentRendered="MainFrame_ContentRendered"  NavigationUIVisibility="Hidden"/>
-        <Button Name="TBBack" Grid.Row="0" HorizontalAlignment="Right" Click="TBBack_Click" Background="#70B2AF" Visibility="Collapsed" FontSize="20"  Content="Назад" Width="150" Height="30"/>
+
+        <!-- Шапка -->
+        <Grid Grid.Row="0">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="*"/>
+                <ColumnDefinition Width="Auto"/>
+                <ColumnDefinition Width="Auto"/>
+            </Grid.ColumnDefinitions>
+
+            <Image Grid.Column="0" Source="/res/Чудо Обувь.ico" Width="60" Height="60" Margin="10" Stretch="Uniform"/>
+
+            <TextBlock Grid.Column="1" Text="Чудо-Обувь" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
+
+            <!-- Кнопки навигации -->
+            <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Name="BtnOrders" Content="Заказы" Width="120" Height="35" FontSize="16" Margin="0,0,10,0"
+                        Background="#70B2AF" Foreground="White" BorderThickness="0" Cursor="Hand" 
+                        Visibility="Collapsed" Click="BtnOrders_Click"/>
+            </StackPanel>
+
+            <!-- Кнопка Выйти/Назад -->
+            <StackPanel Grid.Column="3" Orientation="Horizontal" VerticalAlignment="Center" Margin="0,0,15,0">
+                <Button Name="TBBback" Content="Назад" Width="100" Height="35" FontSize="16" Margin="0,0,10,0"
+                        Background="#70B2AF" Foreground="White" BorderThickness="0" Cursor="Hand" 
+                        Visibility="Hidden" Click="TBBback_Click"/>
+
+                <Button Name="BtnLogout" Content="Выйти" Width="100" Height="35" FontSize="16"
+                        Background="#70B2AF" Foreground="White" BorderThickness="0" Cursor="Hand" 
+                        Click="BtnLogout_Click"/>
+            </StackPanel>
+        </Grid>
+
+        <!-- Страницы -->
+        <Frame Name="MainFrame" Grid.Row="1" ContentRendered="MainFrame_ContentRendered" NavigationUIVisibility="Hidden"/>
     </Grid>
 </Window>

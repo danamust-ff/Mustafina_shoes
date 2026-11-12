@@ -1,47 +1,69 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
-using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace Mustafina_shoes
 {
-    /// <summary>
-    /// Логика взаимодействия для MainWindow.xaml
-    /// </summary>
     public partial class MainWindow : Window
     {
         public MainWindow()
         {
             InitializeComponent();
+            // ВАЖНО: Сначала сохраняем фрейм в менеджер, потом навигируем
+            Manager.MainFrame = MainFrame;
             MainFrame.Navigate(new AuthPage());
-            Manager.MainFrame=MainFrame;
-            
-            
+
+            // Подписываемся на событие перехода, чтобы обновлять шапку
+            MainFrame.Navigated += (s, e) => UpdateHeader();
+        }
+
+        // Этот метод обновляет видимость кнопок в зависимости от роли
+        public void UpdateHeader()
+        {
+            if (Manager.CurrentUser != null)
+            {
+                // Показываем кнопку "Заказы" только админу и менеджеру
+                if (Manager.CanSeeOrders)
+                    BtnOrders.Visibility = Visibility.Visible;
+                else
+                    BtnOrders.Visibility = Visibility.Collapsed;
+            }
+            else
+            {
+                BtnOrders.Visibility = Visibility.Collapsed;
+            }
         }
 
         private void MainFrame_ContentRendered(object sender, EventArgs e)
         {
+            // Логика для кнопки "Назад"
             if (MainFrame.CanGoBack)
-            {
-                TBBack.Visibility = Visibility.Visible;
-            }
+                TBBback.Visibility = Visibility.Visible;
             else
-                TBBack.Visibility = Visibility.Hidden;
+                TBBback.Visibility = Visibility.Hidden;
         }
 
-        private void TBBack_Click(object sender, RoutedEventArgs e)
+        private void TBBback_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.GoBack();
+            if (Manager.MainFrame.CanGoBack)
+                Manager.MainFrame.GoBack();
+        }
+
+        // Обработчик кнопки "Заказы"
+        private void BtnOrders_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new OrdersPage());
+        }
+
+        // Обработчик кнопки "Выйти"
+        private void BtnLogout_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.CurrentUser = null; // Сбрасываем пользователя
+            MainFrame.Navigate(new AuthPage()); // Кидаем на страницу авторизации
+
+            // Очищаем историю переходов
+            while (MainFrame.CanGoBack)
+                MainFrame.RemoveBackEntry();
         }
     }
 }

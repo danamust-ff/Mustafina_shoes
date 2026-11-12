@@ -11,15 +11,9 @@ namespace Mustafina_shoes
 {
     using System;
     using System.Collections.Generic;
-    using System.Linq;
-
+    
     public partial class Order
     {
-        [System.Diagnostics.CodeAnalysis.SuppressMessage("Microsoft.Usage", "CA2214:DoNotCallOverridableMethodsInConstructors")]
-        public Order()
-        {
-            this.OrderItems = new HashSet<OrderItems>();
-        }
         public int IdOrder { get; set; }
         public int OrderNumber { get; set; }
         public System.DateTime DateOrder { get; set; }

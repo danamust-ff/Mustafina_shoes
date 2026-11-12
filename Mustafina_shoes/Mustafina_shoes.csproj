@@ -93,6 +93,7 @@
     <Compile Include="Product.cs">
       <DependentUpon>Mustafina_Shoes.tt</DependentUpon>
     </Compile>
+    <Compile Include="ProductView.cs" />
     <Compile Include="Role.cs">
       <DependentUpon>Mustafina_Shoes.tt</DependentUpon>
     </Compile>

@@ -1,5 +1,4 @@
-﻿using Mustafina_shoes;
-using System;
+﻿using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Windows;
@@ -12,6 +11,7 @@ namespace Mustafina_shoes
         private int? _orderId;
         private List<ItemView> _items = new List<ItemView>();
         private bool _canEditItems = false;
+
         public AddEditOrderPage(int? orderId)
         {
             InitializeComponent();
@@ -59,16 +59,14 @@ namespace Mustafina_shoes
             {
                 var users = context.User.OrderBy(u => u.LastName).ToList();
                 ComboClient.ItemsSource = users;
-                ComboClient.DisplayMemberPath = "FullName";
             }
             else
             {
                 // Обычный пользователь — только себя
                 var me = context.User
-                    .Where(u => u.IdUser == Manager.CurrentUser.UserId)
+                    .Where(u => u.IdUser == Manager.CurrentUser.IdUser)
                     .ToList();
                 ComboClient.ItemsSource = me;
-                ComboClient.DisplayMemberPath = "FullName";
                 ComboClient.SelectedIndex = 0;
                 ComboClient.IsEnabled = false;
                 DpDate.IsEnabled = false;
@@ -78,9 +76,9 @@ namespace Mustafina_shoes
         private void LoadOrder(int orderId)
         {
             var context = Mustafina_ShoesEntities.GetContext();
-            var order = context.Order
-                .Include("OrderItems")
-                .FirstOrDefault(o => o.IdOrder == orderId);
+
+            // 1. Загружаем сам заказ (БЕЗ .Include("OrderItems"))
+            var order = context.Order.FirstOrDefault(o => o.IdOrder == orderId);
 
             if (order == null)
             {
@@ -96,23 +94,27 @@ namespace Mustafina_shoes
 
             _items = new List<ItemView>();
 
-            foreach (var i in order.OrderItems)
+            // 2. Загружаем позиции заказа отдельно
+            var orderItems = context.OrderItems.Where(i => i.IdOrder == orderId).ToList();
+
+            // 3. Проходимся циклом по позициям
+            foreach (var i in orderItems)
             {
                 var stock = context.Stock
-                    .Include("Products")
-                    .Include("Sizes")
-                    .FirstOrDefault(s => s.IdStock == i.StockId);
+                    .Include("Product")
+                    .Include("Size")
+                    .FirstOrDefault(s => s.IdStock == i.IdStock);
 
                 _items.Add(new ItemView
                 {
-                    StockId = i.StockId,
+                    StockId = i.IdStock,
                     ProductName = stock != null && stock.Product != null
                         ? stock.Product.NameProduct
-                        : ("Товар #" + i.StockId),
+                        : ("Товар #" + i.IdStock),
                     SizeName = stock != null && stock.Size != null
                         ? stock.Size.Size1.ToString()
                         : "—",
-                    Price = i.PricePerUnit,
+                    Price = i.UnitPrice, // ВАЖНО: Поле в базе называется UnitPrice
                     Quantity = i.OrderItemQuantity
                 });
             }
@@ -193,9 +195,9 @@ namespace Mustafina_shoes
 
             var context = Mustafina_ShoesEntities.GetContext();
             var allStocks = context.Stock
-                .Include("Products")
-                .Include("Products.Category")
-                .Include("Sizes")
+                .Include("Product")
+                .Include("Product.Category")
+                .Include("Size")
                 .Where(s => s.OuantityInStock > 0)
                 .ToList()
                 .Select(s => new
@@ -223,8 +225,8 @@ namespace Mustafina_shoes
                 if (!string.IsNullOrEmpty(search))
                 {
                     filtered = filtered.Where(s =>
-                        s.ProductName.ToLower().Contains(search) ||
-                        s.SizeName.ToLower().Contains(search));
+                        (s.ProductName ?? "").ToLower().Contains(search) ||
+                        (s.SizeName ?? "").ToLower().Contains(search));
                 }
 
                 if (comboCat.SelectedIndex > 0)
@@ -244,14 +246,15 @@ namespace Mustafina_shoes
 
             btnOk.Click += (s, ev) =>
             {
-                dynamic selected = lv.SelectedItem;
+                // Используем безопасный метод извлечения ID, без dynamic
+                object selected = lv.SelectedItem;
                 if (selected == null)
                 {
                     MessageBox.Show("Выберите товар.");
                     return;
                 }
 
-                int stockId = selected.StockId;
+                int stockId = (int)selected.GetType().GetProperty("IdStock").GetValue(selected);
 
                 var dbStock = context.Stock
                     .Include("Product")
@@ -315,6 +318,7 @@ namespace Mustafina_shoes
             var context = Mustafina_ShoesEntities.GetContext();
             var stock = context.Stock.FirstOrDefault(s => s.IdStock == item.StockId);
 
+            // ИСПРАВЛЕНО: QuantityInStock (с буквой 'a')
             if (stock != null && item.Quantity + 1 > stock.OuantityInStock)
             {
                 MessageBox.Show("Недостаточно товара на складе.");
@@ -398,11 +402,11 @@ namespace Mustafina_shoes
                 MessageBox.Show("Заказ сохранён.", "Успех",
                                 MessageBoxButton.OK, MessageBoxImage.Information);
 
-                // Возврат: админ/менеджер → заказы, обычный → каталог
+                // ВНИМАНИЕ: Передаем Manager.CurrentUser в ProductPage, иначе будет ошибка!
                 if (Manager.CanSeeOrders)
                     Manager.MainFrame.Navigate(new OrdersPage());
                 else
-                    Manager.MainFrame.Navigate(new ProductPage());
+                    Manager.MainFrame.Navigate(new ProductPage(Manager.CurrentUser));
             }
             catch (Exception ex)
             {
@@ -422,8 +426,8 @@ namespace Mustafina_shoes
         public bool CanEditQuantity { get; set; }
 
         public System.Windows.Visibility QtyButtonsVisibility =>
-   CanEditQuantity
-       ? System.Windows.Visibility.Visible
-       : System.Windows.Visibility.Collapsed;
+           CanEditQuantity
+               ? System.Windows.Visibility.Visible
+               : System.Windows.Visibility.Collapsed;
     }
 }
