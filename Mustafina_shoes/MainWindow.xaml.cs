@@ -22,6 +22,8 @@ namespace Mustafina_shoes
         {
             if (Manager.CurrentUser != null)
             {
+                BtnCatalog.Visibility = Visibility.Visible;
+
                 // Показываем кнопку "Заказы" только админу и менеджеру
                 if (Manager.CanSeeOrders)
                     BtnOrders.Visibility = Visibility.Visible;
@@ -30,6 +32,7 @@ namespace Mustafina_shoes
             }
             else
             {
+                BtnCatalog.Visibility = Visibility.Collapsed;
                 BtnOrders.Visibility = Visibility.Collapsed;
             }
         }
@@ -53,6 +56,11 @@ namespace Mustafina_shoes
         private void BtnOrders_Click(object sender, RoutedEventArgs e)
         {
             Manager.MainFrame.Navigate(new OrdersPage());
+        }
+
+        private void BtnCatalog_Click(object sender, RoutedEventArgs e)
+        {
+            Manager.MainFrame.Navigate(new ProductPage(Manager.CurrentUser));
         }
 
         // Обработчик кнопки "Выйти"

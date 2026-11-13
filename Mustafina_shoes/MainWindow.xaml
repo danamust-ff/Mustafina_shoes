@@ -23,12 +23,16 @@
                 <ColumnDefinition Width="Auto"/>
             </Grid.ColumnDefinitions>
 
-            <Image Grid.Column="0" Source="/res/Чудо Обувь.ico" Width="60" Height="60" Margin="10" Stretch="Uniform"/>
+            <Image Grid.Column="0" Source="/res/Чудо Обувь.ico" Width="60" Height="60" HorizontalAlignment="Center" Margin="10" Stretch="Uniform"/>
 
             <TextBlock Grid.Column="1" Text="Чудо-Обувь" FontSize="30" FontWeight="Bold" VerticalAlignment="Center"/>
 
             <!-- Кнопки навигации -->
             <StackPanel Grid.Column="2" Orientation="Horizontal" VerticalAlignment="Center">
+                <Button Name="BtnCatalog" Content="В каталог" Width="120" Height="35" FontSize="16" Margin="0,0,10,0"
+                        Background="#70B2AF" Foreground="White" BorderThickness="0" Cursor="Hand"
+                        Visibility="Collapsed" Click="BtnCatalog_Click"/>
+
                 <Button Name="BtnOrders" Content="Заказы" Width="120" Height="35" FontSize="16" Margin="0,0,10,0"
                         Background="#70B2AF" Foreground="White" BorderThickness="0" Cursor="Hand" 
                         Visibility="Collapsed" Click="BtnOrders_Click"/>

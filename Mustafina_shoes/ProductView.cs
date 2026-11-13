@@ -23,8 +23,13 @@ namespace Mustafina_shoes
 
         // Данные о складе
         public int TotalInStock { get; set; }
+        public int QuantityInStock { get; set; }
         public string AvailableSizes { get; set; }
         public Brush RowBackground { get; set; }
+
+        public string StockAvailability => QuantityInStock >= 5
+            ? "Количество: много"
+            : "Количество: мало";
 
         // Видимость кнопки "Купить" (только для клиентов, IdRole == 3)
         public System.Windows.Visibility BuyVisibility =>

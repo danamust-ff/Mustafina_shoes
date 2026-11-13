@@ -12,8 +12,7 @@ namespace Mustafina_shoes
     using System;
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
-    using System.Runtime.InteropServices;
-
+    
     public partial class Mustafina_ShoesEntities : DbContext
     {
         private static Mustafina_ShoesEntities _context;

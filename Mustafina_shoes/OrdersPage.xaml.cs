@@ -111,7 +111,7 @@ namespace Mustafina_shoes
 
         private void BtnAddOrder_Click(object sender, RoutedEventArgs e)
         {
-            Manager.MainFrame.Navigate(new AddEditOrderPage(null));
+            Manager.MainFrame.Navigate(new AddEditOrderPage((int?)null));
         }
 
         private void BtnOpenOrder_Click(object sender, RoutedEventArgs e)
@@ -126,7 +126,7 @@ namespace Mustafina_shoes
 
         private void BtnDeleteOrder_Click(object sender, RoutedEventArgs e)
         {
-            // Проверка прав — только админ и менеджер
+            // Удалять заказы может администратор или менеджер
             if (!Manager.CanManageOrders)
             {
                 MessageBox.Show("Недостаточно прав для удаления заказа.");

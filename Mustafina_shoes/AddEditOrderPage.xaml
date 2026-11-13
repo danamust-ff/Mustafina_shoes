@@ -52,50 +52,75 @@
                 <TextBlock Grid.Column="2" Text="Дата: "
                            FontSize="16" VerticalAlignment="Center"/>
                 <DatePicker Grid.Column="3" Name="DpDate"
-                            Width="180" Height="30" FontSize="14"/>
+                            Width="180" Height="30" FontSize="14"
+                            SelectedDateChanged="DpDate_SelectedDateChanged"/>
             </Grid>
         </Border>
         <ListView Grid.Row="2" Name="ListViewItems"
-          BorderThickness="1" BorderBrush="#CCCCCC" Padding="5">
-            <ListView.View>
-                <GridView>
-                    <GridViewColumn Header="Товар" Width="400"
-                            DisplayMemberBinding="{Binding ProductName}"/>
-                    <GridViewColumn Header="Размер" Width="80"
-                            DisplayMemberBinding="{Binding SizeName}"/>
-                    <GridViewColumn Header="Цена" Width="120"
-                            DisplayMemberBinding="{Binding Price, StringFormat={}{0:N2}}"/>
+                  BorderThickness="1" BorderBrush="#CCCCCC" Padding="5"
+                  ScrollViewer.HorizontalScrollBarVisibility="Disabled">
+            <ListView.ItemTemplate>
+                <DataTemplate>
+                    <Border BorderBrush="#D8E8E4" BorderThickness="0,0,0,1" Padding="5" Margin="0,0,0,5">
+                        <Grid>
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="120"/>
+                                <ColumnDefinition Width="*"/>
+                                <ColumnDefinition Width="290"/>
+                                <ColumnDefinition Width="150"/>
+                            </Grid.ColumnDefinitions>
 
-                    <!-- Колонка с количеством — с кнопками + и - -->
-                    <GridViewColumn Header="Кол-во" Width="140">
-                        <GridViewColumn.CellTemplate>
-                            <DataTemplate>
-                                <StackPanel Orientation="Horizontal">
-                                    <!-- Кнопки +/− видны только админу -->
+                            <Image Grid.Column="0" Source="{Binding ImagePath}" Width="105" Height="125"
+                                   Stretch="Uniform" VerticalAlignment="Top" Margin="0,0,10,0"/>
+
+                            <StackPanel Grid.Column="1" Margin="5,0,15,0">
+                                <TextBlock Text="{Binding ProductName}" FontSize="19" FontWeight="Bold"
+                                           TextWrapping="Wrap"/>
+                                <TextBlock Text="{Binding ManufactureName, StringFormat=Производитель: {0}}"
+                                           FontSize="14" Margin="0,5,0,0"/>
+                                <TextBlock Text="{Binding CategoryName, StringFormat=Категория: {0}}"
+                                           FontSize="14"/>
+                                <TextBlock Text="{Binding Compound, StringFormat=Состав: {0}}"
+                                           FontSize="13" TextWrapping="Wrap" Margin="0,7,0,0"/>
+                                <TextBlock Text="{Binding Description, StringFormat=Описание: {0}}"
+                                           FontSize="13" TextWrapping="Wrap" Margin="0,3,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="2" Margin="5,0,15,0">
+                                <TextBlock Text="Размерный ряд" FontWeight="Bold" FontSize="14"/>
+                                <TextBlock Text="{Binding SizeRange}" TextWrapping="Wrap" FontSize="13"/>
+                                <TextBlock Text="Доступные размеры" FontWeight="Bold" FontSize="14" Margin="0,8,0,0"/>
+                                <TextBlock Text="{Binding AvailableSizes}" TextWrapping="Wrap" FontSize="13"/>
+                                <TextBlock Text="{Binding SizeName, StringFormat=Выбранный размер: {0}}"
+                                           FontSize="13" Margin="0,8,0,0"/>
+                                <TextBlock Text="{Binding PriceDetails}" TextWrapping="Wrap" FontSize="15"
+                                           FontWeight="Bold" Margin="0,8,0,0"/>
+                            </StackPanel>
+
+                            <StackPanel Grid.Column="3" HorizontalAlignment="Center">
+                                <TextBlock Text="Количество" FontWeight="Bold" HorizontalAlignment="Center"/>
+                                <StackPanel Orientation="Horizontal" Margin="0,8,0,8">
                                     <Button Content="−" Width="28" Height="24"
-                        Background="#70B2AF" Foreground="White"
-                        BorderThickness="0" Cursor="Hand"
-                        Visibility="{Binding QtyButtonsVisibility}"
-                        Click="BtnMinusQty_Click"/>
-
+                                            Background="#70B2AF" Foreground="White"
+                                            BorderThickness="0" Cursor="Hand"
+                                            Visibility="{Binding QtyButtonsVisibility}"
+                                            Click="BtnMinusQty_Click"/>
                                     <TextBlock Text="{Binding Quantity}" Width="40"
-                           TextAlignment="Center" VerticalAlignment="Center"
-                           FontSize="14"/>
-
+                                               TextAlignment="Center" VerticalAlignment="Center"
+                                               FontSize="14"/>
                                     <Button Content="+" Width="28" Height="24"
-                        Background="#70B2AF" Foreground="White"
-                        BorderThickness="0" Cursor="Hand"
-                        Visibility="{Binding QtyButtonsVisibility}"
-                        Click="BtnPlusQty_Click"/>
+                                            Background="#70B2AF" Foreground="White"
+                                            BorderThickness="0" Cursor="Hand"
+                                            Visibility="{Binding QtyButtonsVisibility}"
+                                            Click="BtnPlusQty_Click"/>
                                 </StackPanel>
-                            </DataTemplate>
-                        </GridViewColumn.CellTemplate>
-                    </GridViewColumn>
-
-                    <GridViewColumn Header="Сумма" Width="120"
-                            DisplayMemberBinding="{Binding Total, StringFormat={}{0:N2}}"/>
-                </GridView>
-            </ListView.View>
+                                <TextBlock Text="{Binding Total, StringFormat=Сумма: {0:N2} руб.}"
+                                           FontWeight="Bold" TextWrapping="Wrap" TextAlignment="Center"/>
+                            </StackPanel>
+                        </Grid>
+                    </Border>
+                </DataTemplate>
+            </ListView.ItemTemplate>
         </ListView>
 
         <Border Grid.Row="3" Background="#D2F6E7" Padding="10" Margin="0,10,0,0" CornerRadius="6">
@@ -116,11 +141,18 @@
                         BorderThickness="0" Cursor="Hand"
                         Click="BtnRemoveItem_Click"/>
 
-                <Button Content="Сохранить" Width="140" Height="35"
+                <Button Name="BtnSave" Content="Сохранить" Width="140" Height="35"
                         FontSize="14"
                         Background="#70B2AF" Foreground="White"
                         BorderThickness="0" Cursor="Hand"
                         Click="BtnSave_Click"/>
+
+                <Button Name="BtnBackToOrders" Content="К списку заказов" Width="180" Height="35"
+                        FontSize="14"
+                        Background="#70B2AF" Foreground="White"
+                        BorderThickness="0" Cursor="Hand"
+                        Visibility="Collapsed"
+                        Click="BtnBackToOrders_Click"/>
             </StackPanel>
         </Border>
     </Grid>

@@ -11,13 +11,16 @@ namespace Mustafina_shoes
     {
         private List<ProductView> _allProducts = new List<ProductView>();
         private bool _isInitialized = false;
+        private bool _isGuest;
 
         public ProductPage(User user)
         {
             InitializeComponent();
 
             // 1. Настройка интерфейса под роль
-            if (user != null)
+            _isGuest = user == null || user.IdRole == 0;
+
+            if (!_isGuest)
             {
                 FIOTB.Text = $"{user.LastName} {user.FirstName} {user.Patronymic}";
 
@@ -75,6 +78,7 @@ namespace Mustafina_shoes
 
                     // Считаем общий остаток на складе
                     TotalInStock = p.Stock != null ? p.Stock.Sum(s => s.OuantityInStock) : 0,
+                    QuantityInStock = p.Stock != null ? p.Stock.Sum(s => s.OuantityInStock) : 0,
 
                     // Собираем список доступных размеров (где остаток > 0)
                     AvailableSizes = p.Stock != null && p.Stock.Any(s => s.OuantityInStock > 0 && s.Size != null)
@@ -100,6 +104,12 @@ namespace Mustafina_shoes
         private void ApplyFilter()
         {
             if (!_isInitialized) return;
+
+            if (_isGuest)
+            {
+                ProductListView.ItemsSource = _allProducts.ToList();
+                return;
+            }
 
             // Берем данные из памяти
             var filtered = _allProducts.AsEnumerable();
@@ -170,8 +180,15 @@ namespace Mustafina_shoes
                 return;
             }
 
-            
-            Manager.MainFrame.Navigate(new AddEditOrderPage(null));
+            var button = sender as Button;
+            var selectedProduct = button?.DataContext as ProductView;
+            if (selectedProduct == null)
+            {
+                MessageBox.Show("Не удалось определить выбранный товар.", "Ошибка", MessageBoxButton.OK, MessageBoxImage.Error);
+                return;
+            }
+
+            Manager.MainFrame.Navigate(new AddEditOrderPage(selectedProduct));
         }
     }
 }

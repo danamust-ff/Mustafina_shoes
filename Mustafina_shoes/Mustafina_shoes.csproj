@@ -76,10 +76,20 @@
     <Compile Include="Manufacture.cs">
       <DependentUpon>Mustafina_Shoes.tt</DependentUpon>
     </Compile>
+    <Compile Include="Mustafina_Shoes.Context.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mustafina_Shoes.Context.tt</DependentUpon>
+    </Compile>
     <Compile Include="Mustafina_Shoes.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Mustafina_Shoes.tt</DependentUpon>
+    </Compile>
+    <Compile Include="Mustafina_Shoes.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+      <DependentUpon>Mustafina_Shoes.edmx</DependentUpon>
     </Compile>
     <Compile Include="Order.cs">
       <DependentUpon>Mustafina_Shoes.tt</DependentUpon>
@@ -140,16 +150,6 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Manager.cs" />
-    <Compile Include="Mustafina_Shoes.Context.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Mustafina_Shoes.Context.tt</DependentUpon>
-    </Compile>
-    <Compile Include="Mustafina_Shoes.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>Mustafina_Shoes.edmx</DependentUpon>
-    </Compile>
     <Compile Include="ProductPage.xaml.cs">
       <DependentUpon>ProductPage.xaml</DependentUpon>
     </Compile>
